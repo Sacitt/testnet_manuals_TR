@@ -7,7 +7,7 @@ Visit our website <a href="https://kjnodes.com/" target="_blank"><img src="https
   <img height="100" height="auto" src="https://user-images.githubusercontent.com/50621007/167032367-fee4380e-7678-43e0-9206-36d72b32b8ae.png">
 </p>
 
-# agoric node setup for devnet — agoricdev-11
+# devnet için agorik düğüm kurulumu — agoricdev-11
 
 Official documentation:
 > [Validator Guide for Devnet](https://github.com/Agoric/agoric-sdk/wiki/Validator-Guide-for-Devnet)
@@ -15,82 +15,82 @@ Official documentation:
 Explorer:
 > https://devnet.explorer.agoric.net/
 
-## Usefull tools and references
+## Kullanışlı araçlar ve referanslar
 > To set up monitoring for your validator node navigate to [Set up monitoring and alerting for agoric validator](https://github.com/kj89/testnet_manuals/blob/main/agoric/monitoring/README.md)
 >
 > To migrate your valitorator to another machine read [Migrate your validator to another machine](https://github.com/kj89/testnet_manuals/blob/main/agoric/migrate_validator.md)
 
-## Set up your agoric fullnode
-### Option 1 (automatic)
-You can setup your agoric fullnode in few minutes by using automated script below. It will prompt you to input your validator node name!
+## Agora tam düğümünüzü kurun
+### Seçenek 1 (otomatik)
+Aşağıdaki otomatik komut dosyasını kullanarak agorik tam düğümünüzü birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı girmenizi isteyecektir!
 ```
 wget -O agoric_devnet.sh https://raw.githubusercontent.com/kj89/testnet_manuals/main/agoric/agoric_devnet.sh && chmod +x agoric_devnet.sh && ./agoric_devnet.sh
 ```
 
-### Option 2 (manual)
-You can follow [manual guide](https://github.com/kj89/testnet_manuals/blob/main/agoric/manual_devnet_install.md) if you better prefer setting up node manually
+### Seçenek 2 (elle kurulum)
+Düğümü manuel olarak kurmayı tercih ederseniz , [manuel kılavuzu](https://github.com/kj89/testnet_manuals/blob/main/agoric/manual_devnet_install.md) takip edebilirsiniz .
 
-### Post installation
-When installation is finished please load variables into system
+### Yükleme sonrası
+Kurulum bittiğinde lütfen değişkenleri sisteme yükleyin
 ```
 source $HOME/.bash_profile
 ```
 
-Next you have to make sure your validator is syncing blocks. You can use command below to check synchronization status
+Ardından, doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
 agd status 2>&1 | jq .SyncInfo
 ```
 
-### Create wallet
-To create new wallet you can use command below. Don’t forget to save the mnemonic
+### Cüzdan oluştur
+Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcı kelimeleri kaydetmeyi unutmayın!
 ```
 agd keys add $WALLET
 ```
 
-(OPTIONAL) To recover your wallet using seed phrase
+(İSTEĞE BAĞLI) Cüzdanınızı tohum cümlesi kullanarak kurtarmak için
 ```
 agd keys add $WALLET --recover
 ```
 
-To get current list of wallets
+Mevcut cüzdan listesini almak için
 ```
 agd keys list
 ```
 
-### Save wallet info
-Add wallet address
+### Cüzdan bilgilerini kaydet
+Cüzdan adresi ekle
 ```
 WALLET_ADDRESS=$(agd keys show $WALLET -a)
 ```
 
-Add valoper address
+valoper adresi ekle
 ```
 VALOPER_ADDRESS=$(agd keys show $WALLET --bech val -a)
 ```
 
-Load variables into system
+Değişkenleri sisteme yükle
 ```
 echo 'export WALLET_ADDRESS='${WALLET_ADDRESS} >> $HOME/.bash_profile
 echo 'export VALOPER_ADDRESS='${VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
-### Top up your wallet balance using faucet
-To get free tokens in agoricdev-11 testnet:
-* navigate to [Agoric official discord](https://agoric.com/discord)
-* open `#faucet` channel under `DEVELOPMENT` category 
-* input command: `!faucet client <WALLET_ADDRESS>`
+### Musluğu kullanarak cüzdan bakiyenizi doldurun
+agoricdev-11 testnet'te ücretsiz jeton almak için:
+* gidin[Agoric official discord](https://agoric.com/discord)
+* DEVELOPMENT kanalını aç kategori lerdeki  #faucet kanalına gir 
+* yükleme emri: `!faucet client <WALLET_ADDRESS>`
 
-### Create validator
-Before creating validator please make sure that you have at least 1 bld (1 bld is equal to 1000000 ubld) and your node is synchronized
+### Doğrulayıcı oluştur
+Doğrulayıcı oluşturmadan önce lütfen en az 1 bld'ye sahip olduğunuzdan (1 bld 1000000 ubld'ye eşittir) ve düğümünüzün senkronize edildiğinden emin olun.
 
-To check your wallet balance:
+Cüzdan bakiyenizi kontrol etmek için:
 ```
 agd query bank balances $WALLET_ADDRESS
 ```
-> If your wallet does not show any balance than probably your node is still syncing. Please wait until it finish to synchronize and then continue 
+> Cüzdanınız muhtemelen daha fazla bakiye göstermiyorsa, düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin
 
-To create your validator run command below
+Aşağıdaki doğrulayıcı çalıştırma komutunuzu oluşturmak için
 ```
 agd tx staking create-validator \
   --amount 1000000ubld \
@@ -104,19 +104,16 @@ agd tx staking create-validator \
   --chain-id $CHAIN_ID
 ```
 
-## Security
-To protect you keys please make sure you follow basic security rules
+## Güvenlik
+Anahtarlarınızı korumak için lütfen temel güvenlik kurallarına uyduğunuzdan emin olun.
 
-### Set up ssh keys for authentication
-Good tutorial on how to set up ssh keys for authentication to your server can be found [here](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04)
-
-### Basic Firewall security
-Start by checking the status of ufw.
+### Temel Güvenlik Duvarı güvenliği
+ufw'nin durumunu kontrol ederek başlayın.
 ```
 sudo ufw status
 ```
 
-Sets the default to allow outgoing connections, deny all incoming except ssh and 26656. Limit SSH login attempts
+Varsayılanı, giden bağlantılara izin verecek, ssh ve 26656 hariç tüm gelenleri reddedecek şekilde ayarlar. SSH oturum açma girişimlerini sınırlayın
 ```
 sudo ufw default allow outgoing
 sudo ufw default deny incoming
@@ -127,117 +124,117 @@ sudo ufw enable
 ```
 
 ## Monitoring
-To monitor and get alerted about your validator health status you can use my guide on [Set up monitoring and alerting for agoric validator](https://github.com/kj89/testnet_manuals/blob/main/agoric/monitoring/README.md)
+Doğrulayıcı sağlık durumunuzu izlemek ve bu konuda uyarı almak için, [izleme ve agorik doğrulayıcı için uyarı ayarlama konusundaki kılavuzumu kullanabilirsiniz.](https://github.com/kj89/testnet_manuals/blob/main/agoric/monitoring/README.md)
 
-## Calculate synchronization time
-This script will help you to estimate how much time it will take to fully synchronize your node\
-It measures average blocks per minute that are being synchronized for period of 5 minutes and then gives you results
+## Senkronizasyon süresini hesaplayın
+Bu komut dosyası, düğümünüzü tam olarak senkronize etmenin ne kadar zaman alacağını tahmin etmenize yardımcı olacaktır/
+5 dakikalık bir süre boyunca senkronize edilen dakika başına ortalama blokları ölçer ve ardından size sonuçlar verir.
 ```
 wget -O synctime.py https://raw.githubusercontent.com/kj89/testnet_manuals/main/agoric/tools/synctime.py && python3 ./synctime.py
 ```
 
-## Get currently connected peer list with ids
+## Şu anda bağlı olan eşler listesini kimlikleri ile alın
 ```
 curl -sS http://localhost:26657/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}'
 ```
 
-## Usefull commands
-### Service management
-Check logs
+## Faydalı komutlar
+### Servis Yönetimi
+Günlükleri kontrol et
 ```
 journalctl -fu agd -o cat
 ```
 
-Start service
+Hizmeti başlat
 ```
 systemctl start agd
 ```
 
-Stop service
+Hizmeti durdur
 ```
 systemctl stop agd
 ```
 
-Restart service
+Servisi yeniden başlat
 ```
 systemctl restart agd
 ```
 
-### Node info
-Synchronization info
+### Düğüm bilgisi
+Senkronizasyon bilgisi
 ```
 agd status 2>&1 | jq .SyncInfo
 ```
 
-Validator info
+Validator bilgisi
 ```
 agd status 2>&1 | jq .ValidatorInfo
 ```
 
-Node info
+düğüm bilgisi
 ```
 agd status 2>&1 | jq .NodeInfo
 ```
 
-Show node id
+Düğüm kimliğini göster
 ```
 agd show-node-id
 ```
 
-### Wallet operations
-List of wallets
+### Cüzdan işlemleri
+cüzdan listesi
 ```
 agd keys list
 ```
 
-Recover wallet
+Cüzdanı kurtar ( mevcut bir cüzdanınız var ise bu kod ile yülkeyebilirsiniz )
 ```
 agd keys add $WALLET --recover
 ```
 
-Delete wallet
+Bu kod ile mevcut cüzdanları silebilirsiniz.
 ```
 agd keys delete $WALLET
 ```
 
-Get wallet balance
+cüzdan bakiyesini sorgulama $wallet_ address yazan yere kendi cüzdan adresinizi yazın
 ```
 agd query bank balances $WALLET_ADDRESS
 ```
 
-Transfer funds
+para transferi <to_wallet_address> yazan yere cüzdan adresinizi yazınız
 ```
 agd tx bank send $WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ubld
 ```
 
-### Voting
+### oylama
 ```
 agd tx gov vote 1 yes --from $WALLET --chain-id=$CHAIN_ID
 ```
 
-### Staking, Delegation and Rewards
-Delegate stake
+### Stake, Delegasyon ve Ödüller
+Delege hissesi
 ```
 agd tx staking delegate $VALOPER_ADDRESS 10000000ubld --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 
-Redelegate stake from validator to another validator
+Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme
 ```
 agd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ubld --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 
-Withdraw all rewards
+Tüm ödülleri geri çek
 ```
 agd tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 
-Withdraw rewards with commision
+Komisyon ile ödülleri geri çekin
 ```
 agd tx distribution withdraw-rewards $VALOPER_ADDRESS --from=$WALLET --commission --chain-id=$CHAIN_ID
 ```
 
-### Validator management
-Edit validator
+### Doğrulayıcı yönetimi
+Doğrulayıcıyı düzenle
 ```
 agd tx staking edit-validator \
 --moniker=$NODENAME \
@@ -248,7 +245,7 @@ agd tx staking edit-validator \
 --from=$WALLET
 ```
 
-Unjail validator
+Hapisten çıkma doğrulayıcısı
 ```
 agd tx slashing unjail \
   --broadcast-mode=block \
