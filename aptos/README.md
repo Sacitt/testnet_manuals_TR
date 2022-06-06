@@ -5,61 +5,61 @@ Join our telegram <a href="https://t.me/sacithbn" target="_blank"><img src="http
   <img width="100" height="auto" src="https://user-images.githubusercontent.com/50621007/165930080-4f541b46-1ae3-461c-acc9-de72d7ab93b7.png">
 </p>
 
-# Aptos fullnode setup for Devnet
-Official documents:
-> [Run a full node](https://aptos.dev/tutorials/run-a-fullnode)
+# Devnet için Aptos fullnode kurulumu
+Resmi belgeler:
+> [tam node kurulumu](https://aptos.dev/tutorials/run-a-fullnode)
 
-Usefull tools:
-> To find latest block height use [Aptos Network Dashboard](https://status.devnet.aptos.dev/)\
-> To check your node health status try [Aptos Node Informer](http://node-tools.net/aptos/tester/)\
-> To migrate your fullnode to another machine read [Migrate your fullnode to another machine](https://github.com/kj89/testnet_manuals/blob/main/aptos/migrate_fullnode.md)
+Kullanışlı araçlar:
+> En son blok yüksekliğini bulmak için [Aptos Network Dashboard](https://status.devnet.aptos.dev/)\
+> Düğüm sağlık durumunuzu kontrol etmek için [Aptos Node Informer](http://node-tools.net/aptos/tester/)\
+> Tam düğümünüzü başka bir makineye taşımak için  [Migrate your fullnode to another machine](https://github.com/kj89/testnet_manuals/blob/main/aptos/migrate_fullnode.md)
 
-## Hardware requirements:
-#### For running a production grade Fullnode we recommend the following:
+## Donanım Gereksinimleri:
+#### Bir üretim sınıfı Fullnode çalıştırmak için aşağıdakileri öneririz:
 - CPU: 4 cores (Intel Xeon Skylake or newer)
 - Memory: 8GiB RAM
 
-#### If running the Fullnode for development or testing purpose:
+#### Fullnode'u geliştirme veya test amacıyla çalıştırıyorsanız:
 - CPU: 2 cores
 - Memory: 4GiB RAM
 
-## Set up your aptos fullnode
-### Option 1 (automatic)
-Use script below for a quick installation
+## aptos fullnode'unuzu kurun
+### Seçenek 1 (otomatik)
+Hızlı kurulum için aşağıdaki komut dosyasını kullanın
 ```
 wget -qO aptos.sh https://raw.githubusercontent.com/kj89/testnet_manuals/main/aptos/aptos.sh && chmod +x aptos.sh && ./aptos.sh
 ```
 
-### Option 2 (manual)
-You can follow [manual guide](https://github.com/kj89/testnet_manuals/blob/main/aptos/manual_install.md) if you better prefer setting up node manually
+### Seçenek 2 (manuel)
+Düğümü manuel olarak kurmayı tercih ederseniz , [manual klavuz](https://github.com/kj89/testnet_manuals/blob/main/aptos/manual_install.md) takip edebilirsiniz . 
 
-## Update Aptos Fullnode version
+## Aptos Fullnode sürümünü güncelleyin
 ```
 wget -qO update.sh https://raw.githubusercontent.com/kj89/testnet_manuals/main/aptos/tools/update.sh && chmod +x update.sh && ./update.sh
 ```
 
-## (OPTIONAL) Update configs
+## (İSTEĞE BAĞLI) Yapılandırmaları güncelleyin
 ```
 wget -qO update_configs.sh https://raw.githubusercontent.com/kj89/testnet_manuals/main/aptos/tools/update_configs.sh && chmod +x update_configs.sh && ./update_configs.sh
 ```
 
-## Get your node identity and upstream details
+## Düğüm kimliğinizi ve yukarı akış ayrıntılarınızı alın
 ```
 wget -qO get_identity.sh https://raw.githubusercontent.com/kj89/testnet_manuals/main/aptos/tools/get_identity.sh && chmod +x get_identity.sh && ./get_identity.sh
 ```
 
-## Useful commands
-### Check Aptos logs
+## Faydalı komutlar
+### Aptos günlüklerini kontrol edin
 ```
 docker logs -f aptos-fullnode-1 --tail 50
 ```
 
-### Check sync status
+### Senkronizasyon durumunu kontrol edin
 ```
 curl 127.0.0.1:9101/metrics 2> /dev/null | grep aptos_state_sync_version | grep type
 ```
 
-### Restart service
+### Servisi yeniden başlat
 ```
 docker restart aptos-fullnode-1
 ```
