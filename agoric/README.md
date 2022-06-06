@@ -7,7 +7,7 @@ Visit our website <a href="https://kjnodes.com/" target="_blank"><img src="https
   <img height="100" height="auto" src="https://user-images.githubusercontent.com/50621007/167032367-fee4380e-7678-43e0-9206-36d72b32b8ae.png">
 </p>
 
-# devnet için agorik düğüm kurulumu — agoricdev-11
+# devnet için agoric düğüm kurulumu — agoricdev-11
 
 Official documentation:
 > [Validator Guide for Devnet](https://github.com/Agoric/agoric-sdk/wiki/Validator-Guide-for-Devnet)
@@ -20,9 +20,9 @@ Explorer:
 >
 > To migrate your valitorator to another machine read [Migrate your validator to another machine](https://github.com/kj89/testnet_manuals/blob/main/agoric/migrate_validator.md)
 
-## Agora tam düğümünüzü kurun
+## Agoric tam düğümünüzü kurun
 ### Seçenek 1 (otomatik)
-Aşağıdaki otomatik komut dosyasını kullanarak agorik tam düğümünüzü birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı girmenizi isteyecektir!
+Aşağıdaki otomatik komut dosyasını kullanarak agoric tam düğümünüzü birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı girmenizi isteyecektir!
 ```
 wget -O agoric_devnet.sh https://raw.githubusercontent.com/kj89/testnet_manuals/main/agoric/agoric_devnet.sh && chmod +x agoric_devnet.sh && ./agoric_devnet.sh
 ```
