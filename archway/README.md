@@ -1,104 +1,90 @@
 <p style="font-size:14px" align="right">
-Join our telegram <a href="https://t.me/kjnotes" target="_blank"><img src="https://user-images.githubusercontent.com/50621007/168689534-796f181e-3e4c-43a5-8183-9888fc92cfa7.png" width="30"/></a>
-Visit our website <a href="https://kjnodes.com/" target="_blank"><img src="https://user-images.githubusercontent.com/50621007/168689709-7e537ca6-b6b8-4adc-9bd0-186ea4ea4aed.png" width="30"/></a>
-</p>
+Join our telegram <a href="https://t.me/sacithbn" target="_blank"><img src="https://user-images.githubusercontent.com/50621007/168689534-796f181e-3e4c-43a5-8183-9888fc92cfa7.png" width="30"/></a>
 
 <p align="center">
   <img width="100" height="auto" src="https://user-images.githubusercontent.com/50621007/164164767-0a9590e5-b018-44de-8a3e-4ebdd905dfbc.png">
 </p>
 
 # Archway node setup for Incentivized Testnet — Torii-1
-All information about testnet incentives and challenges you can find [here](https://philabs.notion.site/philabs/Archway-Incentivized-Testnet-Torii-1-9e70a8f431c041618c6932e70d46ccdd)
 
-Official documentation:
->- https://docs.archway.io/docs/validator/running-a-validator-node
->- https://philabs.notion.site/Validator-Setup-Guide-10502472842e4ad8bf7fb7ec68afe07a
-
-## Usefull tools and references
-> To generate gentx for torii-1 testnet please navigate to [Generate gentx for torii-1 incentivized testnet](https://github.com/kj89/testnet_manuals/blob/main/archway/gentx/README.md)
->
-> To set up monitoring for your validator node navigate to [Set up monitoring and alerting for Archway validator](https://github.com/kj89/testnet_manuals/blob/main/archway/monitoring/README.md)
->
-> To migrate your valitorator to another machine read [Migrate your validator to another machine](https://github.com/kj89/testnet_manuals/blob/main/archway/migrate_validator.md)
-
-## Set up your archway fullnode
-### Option 1 (automatic)
-You can setup your archway fullnode in few minutes by using automated script below. It will prompt you to input your validator node name!
+## Archway fullnode'unuzu kurun
+### Seçenek 1 (otomatik)
+Aşağıdaki otomatik komut dosyasını kullanarak Archway fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı girmenizi isteyecektir!
 ```
 wget -O archway.sh https://raw.githubusercontent.com/kj89/testnet_manuals/main/archway/archway.sh && chmod +x archway.sh && ./archway.sh
 ```
 
-### Option 2 (manual)
-You can follow [manual guide](https://github.com/kj89/testnet_manuals/blob/main/archway/manual_install.md) if you better prefer setting up node manually
+### Seçenek 2 (manuel)
+[manual kurulum](https://github.com/kj89/testnet_manuals/blob/main/archway/manual_install.md) u tıklarsanız. manuel kurulum sayfasına yönlendirilirsiniz.
 
-### Post installation
-When installation is finished please load variables into system
+### Yükleme sonrası
+Kurulum bittiğinde lütfen değişkenleri sisteme yükleyin
 ```
 source $HOME/.bash_profile
 ```
 
-Next you have to make sure your validator is syncing blocks. You can use command below to check synchronization status
+Ardından, doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
 archwayd status 2>&1 | jq .SyncInfo
 ```
 
-### Create wallet
-To create new wallet you can use command below. Don’t forget to save the mnemonic
+### Cüzdan oluştur
+Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. memonicleri kaydetmeyi unutmayın!
 ```
 archwayd keys add $WALLET
 ```
 
-(OPTIONAL) To recover your wallet using seed phrase
+(İSTEĞE BAĞLI) Cüzdanınızı tohum cümlesi kullanarak kurtarmak için
 ```
 archwayd keys add $WALLET --recover
 ```
 
-To get current list of wallets
+Mevcut cüzdan listesini almak için
 ```
 archwayd keys list
 ```
 
-### Save wallet info
-Add wallet address
+### Cüzdan bilgilerini kaydet
+Cüzdan adresi ekle
 ```
 WALLET_ADDRESS=$(archwayd keys show $WALLET -a)
 ```
 
-Add valoper address
+valoper adresi ekle
 ```
 VALOPER_ADDRESS=$(archwayd keys show $WALLET --bech val -a)
 ```
 
-Load variables into system
+Değişkenleri sisteme yükle
 ```
 echo 'export WALLET_ADDRESS='${WALLET_ADDRESS} >> $HOME/.bash_profile
 echo 'export VALOPER_ADDRESS='${VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
-### Top up your wallet balance using faucet
-Currently there are two options of getting tokens in torii-1 testnet
+### Musluğu kullanarak cüzdan bakiyenizi doldurun
+Şu anda torii-1 testnet'te jeton almak için iki seçenek var
 
-1. Get 3 torii using your twitter account
-* navigate to https://stakely.io/en/faucet/archway-testnet
-* input your wallet address and click verify
-* then press tweet button and wait for faucet to process your tweet
-> Please note: to mitigate against spam accounts, the Stakely faucet will discard requests from users with Twitter accounts with very little activity or that are too new!
+1. Twitter hesabınızı kullanarak 3 torii alın
+* bu adrese gidin https://stakely.io/en/faucet/archway-testnet
+* cüzdan adresinizi girin ve doğrula'ya tıklayın
+* ardından tweet düğmesine basın ve musluğun tweetinizi işlemesini bekleyin
+> Lütfen unutmayın: İstenmeyen hesaplara karşı önlem almak için Stakely musluğu, Twitter hesapları çok az etkinliğe sahip veya çok yeni olan kullanıcılardan gelen istekleri reddedecektir!
 
-2. Get 3 torii using your twitter account
-* navigate to https://faucet.torii-1.archway.tech/ui/
-* input your wallet address and click `Get Fund`
+2. Twitter hesabınızı kullanarak 3 torii alın
+* bu adrese gidin https://faucet.torii-1.archway.tech/ui/
+* cüzdan adresinizi girin ve tıklayın `Get Fund`
 
-### Create validator
-Before creating validator please make sure that you have at least 1 torii (1 torii is equal to 1000000 utorii) and your node is synchronized
+### Doğrulayıcı oluştur
+Doğrulayıcı oluşturmadan önce lütfen en az 1 torii'ye sahip olduğunuzdan (1 torii 1000000 utorii'ye eşittir) ve düğümünüzün senkronize edildiğinden emin olun.
 
-To check your wallet balance:
+Cüzdan bakiyenizi kontrol etmek için:  $WALLET_ADDRESS ifedesinin yerine kendi cüzdan adresinizi yazın!
 ```
 archwayd query bank balances $WALLET_ADDRESS
 ```
-> If your wallet does not show any balance than probably your node is still syncing. Please wait until it finish to synchronize and then continue 
+> Cüzdanınız muhtemelen daha fazla bakiye göstermiyorsa, düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin 
 
-To create your validator run command below
+Aşağıdaki doğrulayıcı çalıştırma komutunuzu oluşturmak için
 ```
 archwayd tx staking create-validator \
   --amount 1000000utorii \
@@ -112,19 +98,13 @@ archwayd tx staking create-validator \
   --chain-id $CHAIN_ID
 ```
 
-## Security
-To protect you keys please make sure you follow basic security rules
-
-### Set up ssh keys for authentication
-Good tutorial on how to set up ssh keys for authentication to your server can be found [here](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04)
-
-### Basic Firewall security
-Start by checking the status of ufw.
+### Temel Güvenlik Duvarı güvenliği
+ufw'nin durumunu kontrol ederek başlayın.
 ```
 sudo ufw status
 ```
 
-Sets the default to allow outgoing connections, deny all incoming except ssh and 26656. Limit SSH login attempts
+Varsayılanı, giden bağlantılara izin verecek, ssh ve 26656 hariç tüm gelenleri reddedecek şekilde ayarlar. SSH oturum açma girişimlerini sınırlayın
 ```
 sudo ufw default allow outgoing
 sudo ufw default deny incoming
@@ -134,112 +114,97 @@ sudo ufw allow 26656,26660/tcp
 sudo ufw enable
 ```
 
-## Monitoring
-To monitor and get alerted about your validator health status you can use my guide on [Set up monitoring and alerting for Archway validator](https://github.com/kj89/testnet_manuals/blob/main/archway/monitoring/README.md)
-
-## Usefull commands
-### Service management
-Check logs
+## Faydalı komutlar
+### Servis Yönetimi
+Günlükleri kontrol et
 ```
 journalctl -fu archwayd -o cat
 ```
 
-Start service
+Hizmeti başlat
 ```
 systemctl start archwayd
 ```
 
-Stop service
+Hizmeti durdur
 ```
 systemctl stop archwayd
 ```
 
-Restart service
+Servisi yeniden başlat
 ```
 systemctl restart archwayd
 ```
 
-### Node info
-Synchronization info
+### Düğüm bilgisi
+Senkronizasyon bilgisi
 ```
 archwayd status 2>&1 | jq .SyncInfo
 ```
 
-Validator info
+Doğrulayıcı bilgisi
 ```
 archwayd status 2>&1 | jq .ValidatorInfo
 ```
 
-Node info
+Düğüm bilgisi
 ```
 archwayd status 2>&1 | jq .NodeInfo
 ```
 
-Show node id
+Düğüm kimliğini göster
 ```
 archwayd tendermint show-node-id
 ```
 
-### Wallet operations
-List of wallets
+### Cüzdan işlemleri
+cüzdan listesi
 ```
 archwayd keys list
 ```
 
-Recover wallet
+Cüzdanı kurtar
 ```
 archwayd keys add $WALLET --recover
 ```
 
-Delete wallet
+Cüzdanı sil
 ```
 archwayd keys delete $WALLET
 ```
 
-Get wallet balance
+Cüzdan bakiyesi alın
 ```
 archwayd query bank balances $WALLET_ADDRESS
 ```
 
-Transfer funds
+para transferi
 ```
 archwayd tx bank send $WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000utorii
 ```
 
-### Staking, Delegation and Rewards
-Delegate stake
+### Stake, Delegasyon ve Ödüller
+Delege hissesi
 ```
 archwayd tx staking delegate $VALOPER_ADDRESS 10000000utorii --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 
-Redelegate stake from validator to another validator
+Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme
 ```
 archwayd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000utorii --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 
-Withdraw all rewards
+Tüm ödülleri geri çek
 ```
 archwayd tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 
-Withdraw rewards with commision
+Komisyon ile ödülleri geri çekin
 ```
 archwayd tx distribution withdraw-rewards $VALOPER_ADDRESS --from=$WALLET --commission --chain-id=$CHAIN_ID
 ```
 
-### Validator management
-Edit validator
-```
-archwayd tx staking edit-validator \
---moniker=$NODENAME \
---identity=1C5ACD2EEF363C3A \
---website="http://kjnodes.com" \
---details="Providing professional staking services with high performance and availability. Find me at Discord: kjnodes#8455 and Telegram: @kjnodes" \
---chain-id=$CHAIN_ID \
---from=$WALLET
-```
-
-Unjail validator
+Hapisten Çıkarma
 ```
 archwayd tx slashing unjail \
   --broadcast-mode=block \
